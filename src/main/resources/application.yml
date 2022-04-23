@@ -1,0 +1,21 @@
+spring.application.name: ${APP_NAME:consul-demo-api}
+
+springdoc.api-docs.path: /api-docs
+springdoc.swagger-ui.enabled: true
+redoc.enabled: true
+
+spring.cloud:
+  service-registry.auto-registration.enabled: true
+  consul:
+    enabled: true
+    host: localhost
+    port: 8500
+    discovery:
+      prefer-ip-address: true
+      lifecycle.enabled: true
+      catalogServicesWatchDelay: 5000
+      health-check-path: /actuator/health
+      health-check-interval: 15s
+      health-check-timeout: 90s
+      health-check-critical-timeout: 3m
+

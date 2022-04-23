@@ -1,0 +1,92 @@
+###
+# CONSUL DEMO API
+
+###
+# Quests Endpoints
+###
+
+POST {{baseUrl}}/quests/_create
+Content-Type: application/json
+
+{
+  "questId": "{{$uuid}}",
+  "name": "Name Test",
+  "description": "Description Test",
+  "level": "EASY",
+  "status": "ACTIVE"
+}
+
+> {%
+client.test("Create Quest Successful", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+});
+%}
+
+###
+
+GET {{baseUrl}}/quests
+Content-Type: application/json
+
+> {%
+client.test("Get Quests Successful", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+
+client.log("Setting quest_id var: " + response.body[0].questId);
+client.global.set("quest_id", response.body[0].questId);
+%}
+
+###
+GET {{baseUrl}}/quests/{{quest_id}}
+Content-Type: application/json
+
+> {%
+client.test("Get Quest Successful", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+###
+# Maps Endpoints
+###
+
+POST {{baseUrl}}/maps/_create
+Content-Type: application/json
+
+{
+  "mapId": "{{$uuid}}",
+  "name": "Name Test",
+  "urlLocation": "URL Location Test"
+}
+
+> {%
+client.test("Create Map Successful", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+});
+%}
+
+###
+
+GET {{baseUrl}}/maps
+Content-Type: application/json
+
+> {%
+client.test("Get Maps Successful", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+
+client.log("Setting map_id var: " + response.body[0].mapId);
+client.global.set("map_id", response.body[0].mapId);
+%}
+
+###
+GET {{baseUrl}}/maps/{{map_id}}
+Content-Type: application/json
+
+> {%
+client.test("Get Map Successful", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+%}
+
+###
